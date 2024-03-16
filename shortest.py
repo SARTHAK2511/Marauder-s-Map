@@ -18,6 +18,7 @@ def get_overpass_data(start_coord, end_coord):
     );
     out body;
     '''
+    print(overpass_query)
     response = requests.get(overpass_url, params={'data': overpass_query})
     return response.json()
 
