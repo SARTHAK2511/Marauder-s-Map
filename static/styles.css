@@ -1,0 +1,63 @@
+body {
+    font-family: "Metal Mania", system-ui;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 35px;
+    text-align: center;
+    background-image: url('https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/07/marauder-s-map-i-solemnly-swear-i-am-up-to-no-good.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #0a0a0a; /* Gold text color, adjust as needed */
+  }
+  
+  /* Adjustments for #map */
+  #map {
+    margin: auto; /* Centering the map, replacing specific left margin */
+    height: 500px; 
+    width: 850px;
+    /* Additional styling for the map container could go here */
+  }
+  
+  /* Styling for filters */
+  .filters {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  
+  .filters label, .filters input {
+    font-family: "Metal Mania", system-ui;
+    font-size: 20px; /* Adjusted for consistency */
+    color: inherit; /* Inherits the body's text color */
+  }
+  
+  /* Styling for map container and buttons, considering new aesthetic */
+  .map-container {
+    position: relative;
+    width: 850px; /* Matching #map width */
+    margin: 20px auto; /* Centering container */
+  }
+  
+  .map-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #8B4513; /* Dark brown, adjust as needed */
+    color: #FFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: "Metal Mania", system-ui;
+  }
+  
+  #reset-btn {
+    left: calc(-100px - 10px); /* Button width plus some space */
+  }
+  
+  #result-btn {
+    right: calc(-100px - 10px); /* Button width plus some space */
+  }
+  

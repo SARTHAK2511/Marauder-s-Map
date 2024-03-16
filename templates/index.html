@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenStreetMap with Leaflet</title>
+  <!-- Include Leaflet CSS and JavaScript -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+</head>
+<body>
+  <div>
+    <h1 class="title">Marauder's Map</h1>
+  </div>
+  <!-- Create a div to hold the map -->
+  <div class="filters">
+    <label for="quietness">Quietness</label>
+    <input type="checkbox" id="quietness" name="quietness">
+    
+    <label for="shortest-path">Shortest Path</label>
+    <input type="checkbox" id="shortest-path" name="shortest-path">
+  </div>
+  
+  <div id="map"></div>
+
+  <div class="map-container">
+    <button id="reset-btn" class="map-btn">Reset</button>
+    <div id="map-container"></div>
+    <button id="result-btn" class="map-btn">See Result</button>
+  </div>
+
+  <!-- Include the JavaScript file for the map functionality -->
+  <script src="{{ url_for('static', filename='map.js') }}"></script>
+  <script src="{{ url_for('static', filename='index.js') }}"></script>
+</body>
+</html>
