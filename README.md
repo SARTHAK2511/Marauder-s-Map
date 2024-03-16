@@ -4,7 +4,7 @@ Marauder Map is an interactive map application inspired by the magical map from 
 
 ## Features
 
-- **Real-time Traffic Data:** Fetches real-time traffic data from Overpass API to provide up-to-date information.
+- **Real-time Traffic Data:** Fetches real-time traffic data from Overpass API to provide up-to-date informations.
 - **Route Optimization:** Utilizes A* and Dijkstra algorithms to find the shortest and quietest (less traffic) routes.
 - **Interactive UI:** User-friendly interface built with HTML, CSS, and JavaScript for seamless navigation and interaction.
 - **Customizable:** Allows users to input start and end locations for personalized route planning.
