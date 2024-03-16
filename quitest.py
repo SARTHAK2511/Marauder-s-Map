@@ -1,8 +1,8 @@
-# with noise
 import requests
 from haversine import haversine
 import folium
 import math
+from geopy.geocoders import Nominatim
 
 def get_overpass_data(start_coord, end_coord):
     north = max(start_coord[0], end_coord[0])
@@ -106,15 +106,6 @@ def create_route_map(start_coords, end_coords, nodes):
     return path, nodes_info
 
 
-# def plot_path_on_map(start_coords, end_coords, path, nodes_info):
-#     map_center = [(start_coords[0] + end_coords[0]) / 2, (start_coords[1] + end_coords[1]) / 2]
-#     map = folium.Map(location=map_center, zoom_start=15)
-#     folium.Marker(start_coords, popup='Start', icon=folium.Icon(color='green')).add_to(map)
-#     folium.Marker(end_coords, popup='End', icon=folium.Icon(color='red')).add_to(map)
-#     path_coords = [(nodes_info[node_id]['lat'], nodes_info[node_id]['lon']) for node_id in path]
-#     folium.PolyLine(path_coords, color="blue", weight=2.5, opacity=1).add_to(map)
-    # return map
-
 def plot_path_on_map(start_coords, end_coords, path, nodes_info):
     map_center = [(start_coords[0] + end_coords[0]) / 2, (start_coords[1] + end_coords[1]) / 2]
     map = folium.Map(location=map_center, zoom_start=15)
@@ -135,15 +126,102 @@ def plot_path_on_map(start_coords, end_coords, path, nodes_info):
     print(distance_popup)
     folium.Marker(path_coords[-1], popup=distance_popup, icon=folium.Icon(color='purple')).add_to(map)
     
-    return map
+    return map,total_distance
 
+def reverse_geocode(lat, lon):
+    geolocator = Nominatim(user_agent="reverse_geocode_app")
+    location = geolocator.reverse((lat, lon), language='en')
+    return location.address
 
+def get_manual_taxi_fare_estimate(distance_km, type):
+    # Define fare estimates for different distance ranges
+    if type == 'auto':
+        if distance_km <= 2:
+            return "Rs 14 - Rs 26"
+        elif 2 < distance_km <= 4:
+            return "Rs 27 - Rs 36"
+        elif 4 < distance_km <= 6:
+            return "Rs 56 - Rs 77"
+        elif 6 < distance_km <= 8:
+            return "Rs 76 - Rs 93"
+        elif 8 < distance_km <= 10:
+            return "Rs 93 - Rs 116"
+        elif 10 < distance_km <= 12:
+            return "Rs 112 - Rs 134"
+        elif 12 < distance_km <= 14:
+            return "Rs 133 - Rs 156"
+        elif 14 < distance_km <= 16:
+            return "Rs 154 - Rs 166"
+        elif 16 < distance_km <= 18:
+            return "Rs 164 - Rs 182"
+        elif 18 < distance_km <= 20:
+            return "Rs 181 - Rs 195"
+        else:
+            return "Distance exceeds 20km. Please consult local taxi service for fare."
+    else:
+        if distance_km <= 2:
+            return "Rs 21 - Rs 34"
+        elif 2 < distance_km <= 4:
+            return "Rs 36 - Rs 54"
+        elif 4 < distance_km <= 6:
+            return "Rs 64 - Rs 87"
+        elif 6 < distance_km <= 8:
+            return "Rs 72 - Rs 119"
+        elif 8 < distance_km <= 10:
+            return "Rs 93 - Rs 128"
+        elif 10 < distance_km <= 12:
+            return "Rs 121 - Rs 146"
+        elif 12 < distance_km <= 14:
+            return "Rs 134 - Rs 153"
+        elif 14 < distance_km <= 16:
+            return "Rs 134 - Rs 166"
+        elif 16 < distance_km <= 18:
+            return "Rs 165 - Rs 182"
+        elif 18 < distance_km <= 20:
+            return "Rs 182 - Rs 213"
+        else:
+            return "Distance exceeds 20km. Please consult local taxi service for fare."
 
-# Example usage
-start_coords = (30.618338, -96.323712)  # Example start coordinates
-end_coords = (30.591028, -96.330826)    # Example end coordinates
-nodes = get_overpass_data(start_coords, end_coords)
+def main():
+    start_coords = (22.689221, 75.874243)  # hackhive
+    end_coords = (22.729245, 75.813475)    # airport
 
-path, nodes_info = create_route_map(start_coords, end_coords, nodes)
-path_map = plot_path_on_map(start_coords, end_coords, path, nodes_info)
-path_map.save('quitest.html')
+    # Get the addresses of start and end coordinates
+    source_address = reverse_geocode(start_coords[0], start_coords[1])
+    destination_address = reverse_geocode(end_coords[0], end_coords[1])
+
+    print("Source:", source_address)
+    print("Destination:", destination_address)
+
+    # Get data from Overpass API
+    nodes = get_overpass_data(start_coords, end_coords)
+
+    # Create route map
+    path, nodes_info = create_route_map(start_coords, end_coords, nodes)
+
+    # Plot the path on the map and get total distance
+    path_map, total_distance = plot_path_on_map(start_coords, end_coords, path, nodes_info)
+
+    # Save the map
+    path_map.save('hackhive2airport_quietest.html')
+
+    # Print total distance
+    print(f"Total Distance: {total_distance:.2f} km")
+
+    # Calculate taxi fare estimate
+    preference = ['auto', 'cab']
+    fare_estimate = get_manual_taxi_fare_estimate(total_distance, preference[1])
+    print("Taxi Fare Estimate:", fare_estimate)
+
+    # Output Ola and Uber links
+    ola_link = "https://www.olacabs.com/"
+    uber_link = "https://www.uber.com/in/en/"
+    print("Ola Link:", ola_link)
+    print("Uber Link:", uber_link)
+
+    # You can return any additional data if needed
+    return source_address, destination_address, total_distance, fare_estimate, ola_link, uber_link
+
+    
+if __name__ == "__main__":
+    main()
