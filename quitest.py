@@ -182,18 +182,14 @@ def get_manual_taxi_fare_estimate(distance_km, type):
         else:
             return "Distance exceeds 20km. Please consult local taxi service for fare."
 
-def main():
-    start_coords = (22.689221, 75.874243)  # hackhive
-    end_coords = (22.729245, 75.813475)    # airport
+def calculate_quietest(start_coords, end_coords):
 
     # Get the addresses of start and end coordinates
-    source_address = reverse_geocode(start_coords[0], start_coords[1])
-    destination_address = reverse_geocode(end_coords[0], end_coords[1])
-
-    print("Source:", source_address)
-    print("Destination:", destination_address)
-
     # Get data from Overpass API
+    start_coords=tuple(start_coords.values())
+    end_coords=tuple(end_coords.values())
+    print(start_coords,end_coords)
+    
     nodes = get_overpass_data(start_coords, end_coords)
 
     # Create route map
@@ -203,7 +199,7 @@ def main():
     path_map, total_distance = plot_path_on_map(start_coords, end_coords, path, nodes_info)
 
     # Save the map
-    path_map.save('hackhive2airport_quietest.html')
+    path_map.save(r'D:\Application\Marauder-s-Map\templates\quietest.html')
 
     # Print total distance
     print(f"Total Distance: {total_distance:.2f} km")
@@ -220,8 +216,9 @@ def main():
     print("Uber Link:", uber_link)
 
     # You can return any additional data if needed
-    return source_address, destination_address, total_distance, fare_estimate, ola_link, uber_link
-
-    
-if __name__ == "__main__":
-    main()
+    return  {
+        'total_distance': total_distance,
+        'fare_estimate': fare_estimate,
+        'ola_link': ola_link,
+        'uber_link': uber_link
+    }

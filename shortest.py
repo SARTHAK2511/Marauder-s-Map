@@ -170,17 +170,18 @@ def get_manual_taxi_fare_estimate(distance_km, type):
 
 
 
-def main():
-    start_coords = (22.689221, 75.874243)  # hackhive
-    end_coords = (22.729245, 75.813475)    # airport
 
-    # Get the addresses of start and end coordinates
-    source_address = reverse_geocode(start_coords[0], start_coords[1])
-    destination_address = reverse_geocode(end_coords[0], end_coords[1])
+def calculate_shortest(start_coords, end_coords):
+# Get the addresses of start and end coordinates
 
-    print("Source:", source_address)
-    print("Destination:", destination_address)
+    # source_address = reverse_geocode(start_coords['lat'], start_coords['lng'])
+    # destination_address = reverse_geocode(end_coords['lat'], end_coords['lng'])
 
+    # print("Source:", source_address)
+    # print("Destination:", destination_address)
+    start_coords=tuple(start_coords.values())
+    end_coords=tuple(end_coords.values())
+    print(start_coords,end_coords)
     # Get data from Overpass API
     nodes = get_overpass_data(start_coords, end_coords)
 
@@ -191,7 +192,7 @@ def main():
     path_map, total_distance = plot_path_on_map(start_coords, end_coords, path, nodes_info)
 
     # Save the map
-    path_map.save('hackhive2airport_shortest.html')
+    path_map.save(r'D:\Application\Marauder-s-Map\templates\shortest.html')
 
     # Print total distance
     print(f"Total Distance: {total_distance:.2f} km")
@@ -208,8 +209,12 @@ def main():
     print("Uber Link:", uber_link)
 
     # You can return any additional data if needed
-    return source_address, destination_address, total_distance, fare_estimate, ola_link, uber_link
+    return  {
 
-if __name__ == "__main__":
-    main()
+        "total_distance": total_distance,
+        "fare_estimate": fare_estimate,
+        "ola_link": ola_link,
+        "uber_link": uber_link
+    }
+
 

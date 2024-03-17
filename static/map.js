@@ -48,7 +48,7 @@ function onMapClick(e) {
     // Calculate distance between start and end coordinates
     var distance = calculateDistance(startCoords.lat, startCoords.lng, endCoords.lat, endCoords.lng);
     console.log('Shortest distance between start and end points: ' + distance.toFixed(2) + ' meters');
-    sendCoordinatesToFlask(startCoords.lat, endCoords.lat);
+    sendCoordinatesToFlask(startCoords, endCoords);
   }
 }
 
