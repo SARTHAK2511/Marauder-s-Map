@@ -2,24 +2,22 @@
 
 ## Reporting a Vulnerability
 
-At ImageProfiler, we take security seriously. If you discover any security vulnerabilities, we encourage you to responsibly disclose them to us.
+At CyberMinds, we take security vulnerabilities seriously. If you discover any security issues within our systems, we encourage you to report them to us promptly. Your assistance in disclosing potential vulnerabilities helps us maintain a secure environment for all users.
 
-To report a security vulnerability, please follow these steps:
+To report a vulnerability, please follow these steps:
 
-1. **Email:** Send an email to [arunim.malviya.13@gmail.com](mailto:arunim.malviya.13@gmail.com) with a detailed description of the vulnerability.
-2. **Subject:** Use a clear and descriptive subject line (e.g., "Security Vulnerability - Maradour's Map").
-3. **Provide Details:** Include thorough information about the vulnerability, steps to reproduce it, and any potential impact.
+1. **Privately Notify Us**: Please report the vulnerability to our security team by emailing [security@cyberminds.com](mailto:security@cyberminds.com). Do not disclose the vulnerability publicly until it has been resolved.
 
-We will acknowledge your email within 48 hours and strive to provide regular updates as we address the issue.
+2. **Provide Details**: When reporting the vulnerability, please provide sufficient details to help us understand and reproduce the issue. This may include steps to reproduce, impact, and any relevant technical details.
 
-## Responsible Disclosure
+3. **Cooperate with Us**: We appreciate your cooperation in resolving the issue promptly and transparently. Our team will work with you to validate and address the vulnerability.
 
-We kindly ask that you refrain from publicly disclosing the vulnerability until we have had sufficient time to investigate and address it. We appreciate your cooperation in keeping our users and systems safe.
+4. **Responsible Disclosure**: We follow a responsible disclosure process. Once the vulnerability is confirmed and resolved, we may request your cooperation in publicly acknowledging the discovery, depending on the severity and impact.
 
-## Updates and Patching
+5. **Keep Communication Confidential**: Please keep all communication regarding the vulnerability confidential until we provide explicit permission to disclose it publicly.
 
-Once a security vulnerability is verified, we will work diligently to develop and release patches. Updates will be provided on the GitHub repository and included in release notes.
+We value your contribution to our security efforts and thank you for helping us ensure the safety and integrity of our systems.
 
-Your efforts in contributing to the security of ImageProfiler are highly valued, and we appreciate your commitment to responsible disclosure.
+Thank you,
 
-Thank you for helping us make ImageProfiler a secure and reliable tool.
+The CyberMinds Security Team
