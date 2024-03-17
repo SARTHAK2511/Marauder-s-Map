@@ -110,7 +110,7 @@ def plot_path_on_map(start_coords, end_coords, path, nodes_info):
     map_center = [(start_coords[0] + end_coords[0]) / 2, (start_coords[1] + end_coords[1]) / 2]
     map = folium.Map(location=map_center, zoom_start=15)
     folium.Marker(start_coords, popup='Start', icon=folium.Icon(color='green')).add_to(map)
-    folium.Marker(end_coords, popup='End', icon=folium.Icon(color='red')).add_to(map)
+    # folium.Marker(end_coords, popup='End', icon=folium.Icon(color='red')).add_to(map)
     path_coords = [(nodes_info[node_id]['lat'], nodes_info[node_id]['lon']) for node_id in path]
     folium.PolyLine(path_coords, color="blue", weight=2.5, opacity=1).add_to(map)
     
@@ -122,8 +122,11 @@ def plot_path_on_map(start_coords, end_coords, path, nodes_info):
         total_distance += haversine(node1_coords, node2_coords)
     
     # Add distance information to map
-    distance_popup = f'Total Distance(Quiteness): {total_distance:.2f} km'
-    print(distance_popup)
+    preference = ['auto', 'cab']
+    fare_estimate = get_manual_taxi_fare_estimate(total_distance, preference[1])
+    ola_link = "https://www.olacabs.com/"
+    uber_link = "https://www.uber.com/in/en/"
+    distance_popup = f'Total Distance: {total_distance:.2f} km \n\n Fare Estimate: {fare_estimate}\n\n'
     folium.Marker(path_coords[-1], popup=distance_popup, icon=folium.Icon(color='purple')).add_to(map)
     
     return map,total_distance
@@ -201,24 +204,4 @@ def calculate_quietest(start_coords, end_coords):
     # Save the map
     path_map.save(r'D:\Application\Marauder-s-Map\templates\quietest.html')
 
-    # Print total distance
-    print(f"Total Distance: {total_distance:.2f} km")
-
-    # Calculate taxi fare estimate
-    preference = ['auto', 'cab']
-    fare_estimate = get_manual_taxi_fare_estimate(total_distance, preference[1])
-    print("Taxi Fare Estimate:", fare_estimate)
-
-    # Output Ola and Uber links
-    ola_link = "https://www.olacabs.com/"
-    uber_link = "https://www.uber.com/in/en/"
-    print("Ola Link:", ola_link)
-    print("Uber Link:", uber_link)
-
-    # You can return any additional data if needed
-    return  {
-        'total_distance': total_distance,
-        'fare_estimate': fare_estimate,
-        'ola_link': ola_link,
-        'uber_link': uber_link
-    }
+    return {"response":1}
